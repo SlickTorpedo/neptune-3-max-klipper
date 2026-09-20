@@ -114,8 +114,13 @@ config/          Klipper configs (printer.cfg and everything it includes)
   macros/          PRINT_START / PRINT_END / PAUSE / RESUME / homing / etc.
 docs/            Build notes, wiring diagrams, teardown photos, calibration records
 firmware/        Klipper build .config files per MCU (Octopus bridge + SB2209), flashing notes
+stl/             Printable parts, sorted by print colour
+  toolhead/        Stealthburner + CW2 (FilamATrix) for the X1C hotend
 cad/             Adapter plates and printed brackets specific to this conversion
 ```
+
+`stl/` is organised so each colour folder can be imported whole and printed in one go — see
+[`stl/toolhead/README.md`](stl/toolhead/README.md) for the layout and the variant choices.
 
 ---
 
