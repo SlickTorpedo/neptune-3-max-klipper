@@ -1,5 +1,16 @@
 # neptune-3-max-klipper
 
+> ### ⚠️ Read this first
+>
+> **Until this note is removed, most of the writing in this repo — this README and the docs
+> alongside it — is Claude's, not a record of a finished build.** It's a plan being drafted
+> alongside the work, not instructions that have been executed and verified.
+>
+> If you found this repo looking to do the same conversion yourself: **don't follow it yet.**
+> Nothing here has been proven on a physical machine. Pin assignments, wiring notes, config
+> values and part choices may be wrong, out of date, or simply untested. Come back when this
+> note is gone — that's the signal the build is actually done and the docs describe reality.
+
 Gutting an Elegoo Neptune 3 Max and rebuilding it as a real printer: Klipper on a BTT Octopus v1.1,
 an SB2209 CAN toolhead on a single umbilical, and a Stealthburner + CW2 carrying an X1C hotend.
 The frame, the gantry and the 420 × 420 × 500 build volume stay. Almost nothing else does.
