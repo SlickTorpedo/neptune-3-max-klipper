@@ -51,10 +51,10 @@ touches filament or decides where the nozzle goes gets replaced.
 | Stepper drivers | Onboard, fixed | **TMC2209** UART |
 | Toolhead wiring | Loose harness to mainboard | **CAN bus**, single umbilical |
 | Toolhead board | — | **BTT SB2209** |
-| CAN bridge | — | **None** — Octopus v1.1 in USB-to-CAN bridge mode |
+| CAN adapter | — | **BTT U2C v2.1** (Octopus stays plain USB Klipper) |
 | Extruder | Elegoo direct drive | **Stealthburner + CW2** |
 | Hotend | PTFE-lined, ~260 °C max | **X1C / Bambu-style** ceramic-heater hotend |
-| Probe | Elegoo ABL sensor | **TBD — scanning probe** (Beacon / Cartographer / BTT Eddy) |
+| Probe | Elegoo ABL sensor | **BTT Eddy Duo** in CAN mode (its own node on the bus) |
 | Z | Dual screws, belt-synced | **Independent dual Z** + `z_tilt` |
 | Bed leveling | 4 manual knobs + mesh | `z_tilt` + **large adaptive mesh** (KAMP) |
 | Part cooling | Single stock blower | Stealthburner dual 3010 + 4010 hotend fan |
@@ -75,9 +75,11 @@ touches filament or decides where the nozzle goes gets replaced.
 - [x] 24 V PSU — still worth **checking its rating against the new total load** before wiring
 - [x] Ferrules, heat-shrink, crimp tooling
 
-No U2C: the Octopus v1.1 runs USB-to-CAN bridge firmware and hosts the bus itself. That means
-**the CAN jumpers and the 120 Ω termination jumper on the Octopus have to be set correctly**, and
-the bus is terminated at exactly two points — the Octopus and the SB2209, nothing in between.
+- [ ] BTT U2C v2.1 USB-to-CAN adapter (arriving 2026-09-27)
+
+The CAN bus runs from a U2C, not from the Octopus in bridge mode. It's terminated at exactly two
+points: the U2C and the SB2209. Bring-up steps, jumpers and UUIDs are in
+[`docs/can-bringup.md`](docs/can-bringup.md).
 
 ### Toolhead
 - [x] Stealthburner shroud + CW2 kit
@@ -85,7 +87,7 @@ the bus is terminated at exactly two points — the Octopus and the SB2209, noth
 - [x] 2× 3010 part cooling blowers, 1× 4010 hotend fan
 - [x] Stealthburner LED PCB / WS2812B
 - [ ] Hotend→CW2 adapter mount (the same problem already solved on the Voron — reuse that solution)
-- [ ] **Scanning probe — the one part still to buy**
+- [x] **BTT Eddy Duo** scanning probe (CAN mode, sealed in the Stealthburner)
 
 X1C hotend notes to nail down before it's wired to the SB2209: the **ceramic heater's wattage vs.
 what the SB2209's heater output can actually supply**, and the **exact thermistor type** so
@@ -113,7 +115,7 @@ config/          Klipper configs (printer.cfg and everything it includes)
   hardware/        Steppers, heaters, fans, probe, MCU/CAN definitions
   macros/          PRINT_START / PRINT_END / PAUSE / RESUME / homing / etc.
 docs/            Build notes, wiring diagrams, teardown photos, calibration records
-firmware/        Klipper build .config files per MCU (Octopus bridge + SB2209), flashing notes
+firmware/        Klipper/Katapult .config files per MCU (Octopus, SB2209, Eddy Duo), flashing notes
 stl/             Printable parts, sorted by print colour
   toolhead/        Stealthburner + CW2 (FilamATrix) for the X1C hotend
 cad/             Adapter plates and printed brackets specific to this conversion
@@ -140,9 +142,8 @@ cad/             Adapter plates and printed brackets specific to this conversion
 - [ ] Inspect rails and lead screws; clean and re-lube before anything goes back on
 
 ### Phase 2 — Electronics bring-up (on the bench, not in the printer)
-- [ ] Flash Katapult + Klipper to the Octopus as **USB-to-CAN bridge**; confirm it enumerates
-- [ ] Set the Octopus CAN jumpers and confirm the 120 Ω termination jumper
-- [ ] Flash the SB2209 over CAN; `canbus_query.py` returns its UUID
+- [ ] U2C on `can0` at 1 Mbit; Octopus on plain USB Klipper
+- [ ] Katapult on the SB2209 via USB DFU, then Klipper over CAN; Eddy Duo flashed over CAN
 - [ ] Verify termination is present at both ends of the bus and nowhere else
 - [ ] Every stepper moves the right direction under `FORCE_MOVE` before any endstop is trusted
 - [ ] Both Z motors move independently and in the same direction
