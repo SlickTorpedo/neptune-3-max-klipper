@@ -69,6 +69,14 @@ Pi ──USB── Octopus (plain USB Klipper; its RJ12 CAN port is unused)
 - [ ] Flash Klipper to the SB2209 through Katapult
 - [ ] Eddy: listed as Katapult/CanBoot? If yes, flash `klipper_eddy`. If no, **stop** and go over the options.
 
+## eddy-ng (installed 2026-09-25)
+
+The user chose [eddy-ng](https://github.com/vvuk/eddy-ng) over BTT's stock Eddy flow. It replaces BTT's hot
+temperature-compensation calibration with a cold `PROBE_EDDY_NG_SETUP` plus a nozzle "tap" before each print.
+It's installed on the Pi, and `~/fw-out/klipper_eddy.bin` (52696 bytes) includes it. The eddy-ng docs say
+tap works best with the **bottom of the Eddy's coil PCB about 2.95 mm above the nozzle tip** (about 1.75 mm
+from the case bottom to the tip). Homing and meshing work at other heights; tap is the sensitive part.
+
 ## UUIDs
 
 | Node | UUID | Application seen |

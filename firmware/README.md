@@ -24,6 +24,12 @@ The CAN adapter is a **BTT U2C v2.1**, so the Octopus is **not** a USB-to-CAN br
 
 Notes:
 
+- **eddy-ng:** the Pi's `~/klipper` has eddy-ng (1ed056b) installed. That links `src/sensor_ldc1612_ng.c` and
+  two klippy extras, and patches `src/Makefile` and `klippy/extras/bed_mesh.py`. The Eddy image **must** be
+  built from that patched tree. The SB2209 image was rebuilt from it too, so every MCU matches the host.
+  Before any Klipper update: `~/eddy-ng/install.sh --uninstall`, `git pull`, `install.sh`, then rebuild and
+  reflash all MCUs.
+
 - **Eddy offset:** on the RP2040, Katapult always launches the application at `0x10004000` (fixed in
   `katapult/src/rp2040/Kconfig`, `LAUNCH_APP_ADDRESS`). So any Katapult/CanBoot the Eddy shipped
   with requires the 16KiB bootloader offset, and there's nothing to guess.
