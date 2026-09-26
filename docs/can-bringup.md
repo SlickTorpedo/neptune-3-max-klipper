@@ -43,20 +43,20 @@ Pi ──USB── Octopus (plain USB Klipper; its RJ12 CAN port is unused)
 ## Runbook
 
 ### A. Host prep (Pi on; toolhead disconnected)
-- [ ] SSH key access for Claude (user runs `ssh-copy-id`)
-- [ ] `git clone https://github.com/Arksine/katapult ~/katapult`
-- [ ] `can0` via systemd-networkd, following the current Esoterical "Getting Started" page. The old
+- [x] SSH key access for Claude (`ssh neptune`); narrow NOPASSWD sudoers rule in `/etc/sudoers.d/010-klipper-flash` (dfu-util, systemctl klipper, dmesg, ip)
+- [x] `git clone https://github.com/Arksine/katapult ~/katapult` (ec59b9b)
+- [x] (already in place on 2026-09-25, matched the guide exactly) `can0` via systemd-networkd, following the current Esoterical "Getting Started" page. The old
       ifupdown `interfaces.d/can0` method has been retired there.
   - enable, start (unmask first if needed) `systemd-networkd`; disable `systemd-networkd-wait-online`
   - `/etc/udev/rules.d/10-can.rules`: `SUBSYSTEM=="net", ACTION=="change|add", KERNEL=="can*"  ATTR{tx_queue_len}="128"`
   - `/etc/systemd/network/25-can.network`: `[Match] Name=can*` / `[CAN] BitRate=1M` / `[Link] RequiredForOnline=no`
   - reboot
-- [ ] Confirm Octopus Klipper is current; reflash over USB only if Klipper reports a version mismatch
+- [x] Pi Klipper is `77d5d942e` (2026-05-04). All new images are built from this same checkout, so the Octopus needs no reflash. Built images are in `~/fw-out/` on the Pi.
 
 ### B. SB2209 over USB (umbilical **disconnected**)
-- [ ] USB_5V jumper on, USB-C from Pi to SB2209
-- [ ] Hold BOOT and RESET, release RESET, release BOOT. `lsusb` shows `0483:df11`
-- [ ] Flash `katapult_sb2209` build: `sudo dfu-util -R -a 0 -s 0x08000000:mass-erase:force:leave -D ~/katapult/out/katapult.bin -d 0483:df11` (from Esoterical toolhead_flashing)
+- [x] USB_5V jumper on, USB-C from Pi to SB2209. **The first cable failed to enumerate** (`device descriptor read/64, error -32` on two ports); a different cable worked.
+- [x] Hold BOOT and RESET, release RESET, release BOOT. `lsusb` shows `0483:df11` (DFU serial 204F37854130)
+- [x] 2026-09-25: flashed the `katapult_sb2209` build (4564 bytes, mass-erase, OK; the trailing `get_status` error is expected): `sudo dfu-util -R -a 0 -s 0x08000000:mass-erase:force:leave -D ~/katapult/out/katapult.bin -d 0483:df11` (from Esoterical toolhead_flashing)
 - [ ] Remove USB, **remove USB_5V jumper**
 
 ### C. U2C and umbilical (from 2026-09-27)
