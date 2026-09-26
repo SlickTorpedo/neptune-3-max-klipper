@@ -26,7 +26,7 @@ Notes:
 
 - **eddy-ng:** the Pi's `~/klipper` has eddy-ng (1ed056b) installed. That links `src/sensor_ldc1612_ng.c` and
   two klippy extras, and patches `src/Makefile` and `klippy/extras/bed_mesh.py`. The Eddy image **must** be
-  built from that patched tree. The SB2209 image was rebuilt from it too, so every MCU matches the host.
+  built from that patched tree. The SB2209 image was rebuilt from it too. The Octopus keeps its existing firmware: same Klipper commit, and only the Eddy uses the new sensor code.
   Before any Klipper update: `~/eddy-ng/install.sh --uninstall`, `git pull`, `install.sh`, then rebuild and
   reflash all MCUs.
 
