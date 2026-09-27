@@ -96,6 +96,13 @@ from the case bottom to the tip). Homing and meshing work at other heights; tap 
 - The bench `[temperature_sensor hotend]` on the Octopus (PF4) reads about -51 °C: nothing is plugged in. It's stale and can go.
 - Octopus firmware is v0.13.0-533 and the host is -642. It works; reflash the Octopus from the same tree when convenient.
 
+## Function checks (2026-09-26)
+
+- Part fan (M106 S102): the top fan spins and the bottom (hotend) fan doesn't, so FAN2 = part fan is correct.
+- Stealthburner LEDs: not fitted; config section commented out.
+- Filamatrix sensor on PB6: flips from not detected to detected when filament is inserted. Pin and polarity correct.
+- One FIRMWARE_RESTART failed with "Failed automated reset of MCU 'eddy'" (the Eddy was still configured). The retry was fine. Watch for a repeat.
+
 ## Calibration results
 
 None yet.
