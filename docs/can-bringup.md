@@ -1,6 +1,6 @@
 # CAN bring-up: U2C, SB2209 and Eddy Duo
 
-Status: **in progress** (started 2026-09-25). Nothing on this page has been powered up yet unless a
+Status: **bus up, all three MCUs ready in Klipper (2026-09-26)**; next is calibration (started 2026-09-25). Nothing on this page has been powered up yet unless a
 step is ticked.
 
 ## Hardware as identified
@@ -81,8 +81,20 @@ from the case bottom to the tip). Homing and meshing work at other heights; tap 
 
 | Node | UUID | Application seen |
 |---|---|---|
-| SB2209 | TBD | |
-| Eddy Duo | TBD | |
+| SB2209 | `e0ee669c3821` | Katapult (ours, app 0x8002000) → Klipper, flashed 2026-09-26 |
+| Eddy Duo | `6e4e53261cb4` | BTT factory Katapult/CanBoot (protocol 1.0.0, app 0x10004000) → Klipper + eddy-ng, flashed 2026-09-26, verified SHA 756A370B… |
+
+## First power-on (2026-09-26)
+
+- `can0` UP at 1M. First query: both nodes in Katapult. Identified with `flashtool.py -s`: stm32g0b1 = SB2209, rp2040 = Eddy.
+  flashtool refuses to flash an image whose MCU type doesn't match, which is a useful safety net.
+- The Pi came back as `neptune-2.local` (mDNS name clash). Connect with `ssh -o HostName=neptune-2.local -o HostKeyAlias=neptune.local neptune`.
+- Klipper ready. Readings at room temperature: extruder 26.6 °C (bed 26.7 °C), SB2209 board 31 °C, Eddy NTC 36 °C, Eddy MCU 41 °C.
+  ADXL (x, y, z) = (-919, -444, 9697), with gravity on Z. `PROBE_EDDY_NG_STATUS`: about 3.198 MHz, status 0x48 UNREADCONV1 DRDY (healthy, not calibrated).
+- CAN stats: SB2209 rx_error 44, flat since startup; Eddy tx_retries about 23, flat.
+- eddy-ng needs a non-zero probe offset and a `[bed_mesh]` section. Both are **placeholders** for now (x 0, y 20).
+- The bench `[temperature_sensor hotend]` on the Octopus (PF4) reads about -51 °C: nothing is plugged in. It's stale and can go.
+- Octopus firmware is v0.13.0-533 and the host is -642. It works; reflash the Octopus from the same tree when convenient.
 
 ## Calibration results
 
