@@ -60,7 +60,7 @@ Pi ──USB── Octopus (plain USB Klipper; its RJ12 CAN port is unused)
 - [ ] Remove USB, **remove USB_5V jumper**
 
 ### C. U2C and umbilical (from 2026-09-27)
-- [ ] U2C: flash Esoterical's fixed `G0B1_U2C_V2.bin` (hold BOOT while plugging it in, then `dfu-util`)
+- [x] 2026-09-26: U2C flashed with Esoterical's fixed `G0B1_U2C_V2.bin` (sha256 6c5c462b…0ff, matches the guide repo). It was running stock `budgetcan`, and `dfu-util -e -d 1d50:606f` put it into DFU without the BOOT button. Replugged: `1d50:606f`, `can0` UP at 1000000, qlen 128, `gs_usb` loaded.
 - [ ] U2C 120R jumper on; U2C 24V/GND terminals to PSU V+/V−
 - [ ] Umbilical plugged into the U2C and the SB2209
 - [ ] **Power off:** ~60 Ω CAN-H↔CAN-L; no continuity from 24V to either CAN line
