@@ -144,6 +144,11 @@ Corners: FL +0.341, FR -0.454, BL +0.295, BR -0.152, centre -0.004. Middle row +
 The front row falls from +0.34 on the left to -0.45 on the right, a left-right twist mostly at the front, which the gantry can't correct.
 Tramming the bed with its corner screws should remove most of it.
 
+### Bed tram, round 1 (cold, after Z_TILT) (2026-09-26)
+SCREWS_TILT_CALCULATE (6 outer screws, LF reference), repeated twice with near-identical results:
+LM CW 00:12, LB CW 00:13, RB CW 00:57, RM CW 00:06, RF CW 01:21 (RF 0.67 mm low vs LF).
+Klipper CW-M3: CW = less gap = raises that corner.
+
 ### First tap (2026-09-26, cold nozzle, clean, no filament)
 `PROBE_EDDY_NG_TAP` at the bed centre: taps -0.113 / -0.100 / -0.105 → **-0.106, stddev 0.005**, overshoot 0.035, sensor offset 0.105 at z=2.
 The contact point was about 0.1 mm (one paper thickness) below the paper-test zero, as expected.
