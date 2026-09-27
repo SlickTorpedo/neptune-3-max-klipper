@@ -129,6 +129,21 @@ labels fixed. Rerun: 0.982 → 0.021 → **0.0013 mm** in 3 rounds.
 First `G28 Z` via the Eddy was OK. `PROBE_EDDY_NG_PROBE_STATIC`: Z2 → 2.008 (±0.007, 3×), Z1 → 1.019, Z3 → 2.919. Saved with SAVE_CONFIG.
 Redo warm (bed ~55 °C) once `[heater_bed]` is configured.
 
+### PID (2026-09-26)
+Hotend: `PID_CALIBRATE HEATER=extruder TARGET=250` → Kp 38.020 Ki 12.673 Kd 28.515 (reached 200 °C in about 25 s).
+The hotend fan was found jammed (grinding) during this run and fixed; confirmed spinning at 60 °C.
+Bed: `PID_CALIBRATE HEATER=heater_bed TARGET=60` → Kp 71.440 Ki 0.776 Kd 1644.914 (about 2 °C per 10 s at full power, DC MOSFET on HE0).
+
+### eddy-ng setup, warm (bed 55 °C, Eddy NTC 44 °C) (2026-09-26)
+Drive current 15, valid 0.001–15.000, spread 2.22%, fit 0.0105 (very close to cold). Static at Z2 → 2.004.
+Tap 0.038/0.035/0.035 → **0.036, stddev 0.001**. Saved with SAVE_CONFIG (replaces the cold calibration).
+
+### First mesh (bed 55 °C, after Z_TILT 0.291 → 0.014, tap stddev 0.017) (2026-09-26)
+`BED_MESH_CALIBRATE METHOD=rapid_scan`, 21×21, saved as `default`. **Range 0.911 mm** (min -0.501, max +0.410).
+Corners: FL +0.341, FR -0.454, BL +0.295, BR -0.152, centre -0.004. Middle row +0.28 … 0 … +0.30 (gantry bow / dish).
+The front row falls from +0.34 on the left to -0.45 on the right, a left-right twist mostly at the front, which the gantry can't correct.
+Tramming the bed with its corner screws should remove most of it.
+
 ### First tap (2026-09-26, cold nozzle, clean, no filament)
 `PROBE_EDDY_NG_TAP` at the bed centre: taps -0.113 / -0.100 / -0.105 → **-0.106, stddev 0.005**, overshoot 0.035, sensor offset 0.105 at z=2.
 The contact point was about 0.1 mm (one paper thickness) below the paper-test zero, as expected.
