@@ -17,7 +17,7 @@ step is ticked.
 ## Bus topology and termination
 
 ```
-Pi ──USB-C── U2C [120R ON] ══ umbilical (24V, GND, CAN-H, CAN-L) ══ SB2209 [120R ON] ── fan board ── Eddy Duo
+Pi ──USB-C── U2C [120R ON] ══ umbilical (24V, GND, CAN-H, CAN-L) ══ SB2209 [120R OFF] ── fan board ── Eddy Duo [own 120R, fixed/sealed]
                    ▲ 24V/GND screw terminals ← PSU V+/V− (pass-through only)
 Pi ──USB── Octopus (plain USB Klipper; its RJ12 CAN port is unused)
 ```
@@ -37,7 +37,7 @@ Pi ──USB── Octopus (plain USB Klipper; its RJ12 CAN port is unused)
 | V_4W FAN | none | 4-pin fan port unused |
 | V_Proximity, NPN | none | no inductive probe |
 | 2.2K (JP2, "PT1000") | **none** | puts 4.12k in parallel with 4.7k (= 2.2k) as the TH0 pull-up, which is only for a PT1000. The hotend uses Generic 3950. |
-| 120R | **ON** | far end of the bus |
+| 120R | **OFF** | With it on, CAN-H↔CAN-L read 41 Ω: the Eddy Duo has its own terminator switched on. The Eddy is physically the last node, so it terminates that end. With this jumper off: 60 Ω (2026-09-26). |
 | USB_5V | **ON only while flashing over USB**, and never with 24V connected | powers the board from USB for DFU |
 
 ## Runbook
