@@ -101,7 +101,10 @@ from the case bottom to the tip). Homing and meshing work at other heights; tap 
 - Part fan (M106 S102): the top fan spins and the bottom (hotend) fan doesn't, so FAN2 = part fan is correct.
 - Stealthburner LEDs: not fitted; config section commented out.
 - Filamatrix sensor on PB6: flips from not detected to detected when filament is inserted. Pin and polarity correct.
-- One FIRMWARE_RESTART failed with "Failed automated reset of MCU 'eddy'" (the Eddy was still configured). The retry was fine. Watch for a repeat.
+- **Known quirk: "Failed automated reset of MCU 'eddy'".** It happens whenever a config change forces the boards to reset (seen twice).
+  The log shows the Eddy's clock carrying on, so it never executed the `reset` command. Klipper sends `reset`, pauses 15 ms and
+  disconnects (`mcu.py _restart_via_command`), so there's no time for a host retransmit. The Eddy's software CAN (can2040 on the
+  RP2040) can miss a frame that another node ACKs. **Workaround: run FIRMWARE_RESTART again; it has worked every time.**
 
 ## Calibration results
 
