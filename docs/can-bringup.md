@@ -105,4 +105,17 @@ from the case bottom to the tip). Homing and meshing work at other heights; tap 
 
 ## Calibration results
 
-None yet.
+### Gantry rough level (2026-09-26)
+Nozzle-to-bed with a ruler: X30 about 28 mm, X390 about 30 mm. `FORCE_MOVE STEPPER=stepper_z DISTANCE=2` (left up 2 mm), then both matched.
+Z direction confirmed: positive = up, both motors together.
+
+### Eddy offsets (2026-09-26)
+The nozzle is centred side to side on the Eddy case. The case's square end is 16 mm behind the nozzle, and BTT's drawing puts the coil
+centre 11.33 mm in from that end, so **x 0, y +27.33**. Y=0 is the front of the bed (the nozzle sits over the front edge at Y0), confirming +Y.
+Case bottom is about 2.0 mm above the nozzle tip.
+
+### eddy-ng setup (2026-09-26, bed cold, ~27 °C)
+`PROBE_EDDY_NG_SETUP` at X210 Y210 with a paper test:
+`Drive current 15: valid height: 0.000 to 15.000, freq spread 2.34% (3198802.6 - 3273722.6), Fit 0.0104` → reg/tap drive current 15.
+First `G28 Z` via the Eddy was OK. `PROBE_EDDY_NG_PROBE_STATIC`: Z2 → 2.008 (±0.007, 3×), Z1 → 1.019, Z3 → 2.919. Saved with SAVE_CONFIG.
+Redo warm (bed ~55 °C) once `[heater_bed]` is configured.
