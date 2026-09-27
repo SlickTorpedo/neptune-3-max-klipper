@@ -119,3 +119,9 @@ Case bottom is about 2.0 mm above the nozzle tip.
 `Drive current 15: valid height: 0.000 to 15.000, freq spread 2.34% (3198802.6 - 3273722.6), Fit 0.0104` → reg/tap drive current 15.
 First `G28 Z` via the Eddy was OK. `PROBE_EDDY_NG_PROBE_STATIC`: Z2 → 2.008 (±0.007, 3×), Z1 → 1.019, Z3 → 2.919. Saved with SAVE_CONFIG.
 Redo warm (bed ~55 °C) once `[heater_bed]` is configured.
+
+### First tap (2026-09-26, cold nozzle, clean, no filament)
+`PROBE_EDDY_NG_TAP` at the bed centre: taps -0.113 / -0.100 / -0.105 → **-0.106, stddev 0.005**, overshoot 0.035, sensor offset 0.105 at z=2.
+The contact point was about 0.1 mm (one paper thickness) below the paper-test zero, as expected.
+Paper check after the tap: Z0.3 free, Z0.2 slight drag, Z0.1 more drag, Z0 drag (eddy-ng's target is "a good amount of friction" at Z0).
+`tap_adjust_z` left at 0 until a first-layer print says otherwise.
