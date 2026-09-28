@@ -1,0 +1,72 @@
+{
+    "from": "User",
+    "inherits": "MyKlipper 0.4 nozzle",
+    "name": "Neptune 3 Max 0.4",
+    "printer_settings_id": "Neptune 3 Max 0.4",
+    "print_host": "neptune.local",
+    "printable_area": [
+        "0x0",
+        "420x0",
+        "420x420",
+        "0x420"
+    ],
+    "printable_height": "500",
+    "gcode_flavor": "klipper",
+    "machine_start_gcode": "M190 S0\nM109 S0\nPRINT_START BED=[bed_temperature_initial_layer_single] HOTEND=[nozzle_temperature_initial_layer]",
+    "machine_end_gcode": "PRINT_END",
+    "machine_max_speed_x": [
+        "200",
+        "200"
+    ],
+    "machine_max_speed_y": [
+        "200",
+        "200"
+    ],
+    "machine_max_speed_z": [
+        "10",
+        "10"
+    ],
+    "machine_max_acceleration_x": [
+        "2000",
+        "2000"
+    ],
+    "machine_max_acceleration_y": [
+        "2000",
+        "2000"
+    ],
+    "machine_max_acceleration_z": [
+        "100",
+        "100"
+    ],
+    "machine_max_acceleration_extruding": [
+        "2000",
+        "2000"
+    ],
+    "machine_max_acceleration_retracting": [
+        "2000",
+        "2000"
+    ],
+    "machine_max_acceleration_travel": [
+        "2000",
+        "2000"
+    ],
+    "retraction_length": [
+        "0.8"
+    ],
+    "retraction_speed": [
+        "35"
+    ],
+    "deretraction_speed": [
+        "35"
+    ],
+    "z_hop": [
+        "0.4"
+    ],
+    "printer_extruder_id": [
+        "1"
+    ],
+    "printer_extruder_variant": [
+        "Direct Drive Standard"
+    ],
+    "version": "2.3.2.60"
+}
