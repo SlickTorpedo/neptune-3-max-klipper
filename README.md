@@ -123,7 +123,9 @@ config/            Klipper configs (the Pi's ~/printer_data/config mirrors this)
     z_tilt.cfg       Dual-Z levelling (stepper_z is the RIGHT screw)
     screws_tilt.cfg  Bed tramming over the 6 outer bed screws
     bed_mesh.cfg     21×21 mesh, scanned at 2 mm
-  macros/            PRINT_START / PRINT_END etc. (not written yet)
+  macros/print.cfg   PRINT_START / PRINT_END (eddy-ng tap + native adaptive mesh + KAMP purge)
+  KAMP_Settings.cfg  KAMP (LINE_PURGE, SMART_PARK). On the Pi, config/KAMP is a symlink to
+                     ~/Klipper-Adaptive-Meshing-Purging/Configuration, and mainsail.cfg comes from mainsail-config
 docs/
   can-bringup.md     The bring-up log: hardware IDs, jumpers, UUIDs, every calibration result
 firmware/          Katapult/Klipper .config per MCU (Octopus, SB2209, Eddy Duo) + where each value came from
