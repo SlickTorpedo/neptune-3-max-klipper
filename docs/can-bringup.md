@@ -164,6 +164,14 @@ Klipper CW-M3: CW = less gap = raises that corner.
 - **Pi 3 limit:** a 21x21 rapid scan plus eddy-ng `debug: True` (the default) stalled klippy → `MCU 'mcu' shutdown: Timer too close`.
   Fixed with `debug: False` and a 15x15 mesh (no stall since). Scan height back to 2.0.
 
+### Extruder (2026-09-27)
+- First extrude shut the SB2209 driver down: `TMC 'extruder' reports error: ShortToSupply_A OpenLoad_B`. Cause: split coil pairs
+  in the E0 plug (coils on pins 1–3 and 2–4; this motor's pairs are blue+red and orange+black, not the wires that exit together).
+  Swapped pins 2 and 3; the driver survived (clean DRV_STATUS afterwards).
+- Direction correct (feeds down). About 60 mm to prime the empty CW2 → X1C path.
+- E-steps check at 215 °C, PLA: 100 mm requested, **100 mm fed exactly** (120 mm mark → 20 mm left). rotation_distance 22.6789511, gear_ratio 50:10 unchanged.
+- Filamatrix sensor detects loaded filament.
+
 ### First tap (2026-09-26, cold nozzle, clean, no filament)
 `PROBE_EDDY_NG_TAP` at the bed centre: taps -0.113 / -0.100 / -0.105 → **-0.106, stddev 0.005**, overshoot 0.035, sensor offset 0.105 at z=2.
 The contact point was about 0.1 mm (one paper thickness) below the paper-test zero, as expected.
