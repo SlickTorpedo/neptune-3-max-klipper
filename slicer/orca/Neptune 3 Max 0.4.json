@@ -3,7 +3,7 @@
     "inherits": "MyKlipper 0.4 nozzle",
     "name": "Neptune 3 Max 0.4",
     "printer_settings_id": "Neptune 3 Max 0.4",
-    "print_host": "neptune.local",
+    "print_host": "192.168.4.50",
     "printable_area": [
         "0x0",
         "420x0",
