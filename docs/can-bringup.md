@@ -149,6 +149,21 @@ SCREWS_TILT_CALCULATE (6 outer screws, LF reference), repeated twice with near-i
 LM CW 00:12, LB CW 00:13, RB CW 00:57, RM CW 00:06, RF CW 01:21 (RF 0.67 mm low vs LF).
 Klipper CW-M3: CW = less gap = raises that corner.
 
+### Silicone spacers, new Y motor, bed flattening (2026-09-27)
+- **Y motor** replaced with an iMetrx 42x60 NEMA17 (2.1 A, 1.8°). The first move buzzed (coil pairs crossed), fixed by re-pinning.
+  Now 1.2 A, SpreadCycle; +Y moves the bed forward (correct); homes fine.
+- **homing_override bug:** a bare `SET_KINEMATIC_POSITION CLEAR_HOMED=z` marked X/Y homed (SET_HOMED defaults to xyz). Fixed.
+- **Bed:** springs replaced by 18 mm silicone spacers on the **6 edge screws**. There is no centre screw. Two **centre standoffs**
+  also bolt the bed to the carriage.
+  - First mesh at 55 °C: nozzle dragged on the bed and the scan data went wild (a "no samples" failure). Z6 grid showed a **~2 mm bowl**.
+    Cause: the two centre standoff screws were cranked down and pulled the middle of the plate toward the carriage.
+    Loosened to half a turn from loose.
+  - The Eddy is only accurate to about 3 mm (docs: up to 5 "mostly"). Spot checks at Z6 were misleading and caused one wasted FL round-trip (net 0 turns).
+  - All six edge screws 2 turns CCW → mesh 1.65 → 1.23. Then corners only CCW (BL 1½, FL 1, BR 1, FR ½) → **0.715 mm**.
+  - What's left is the same left-right U in every row (+0.5–0.65 at X15/X405): **gantry bow**, not the bed.
+- **Pi 3 limit:** a 21x21 rapid scan plus eddy-ng `debug: True` (the default) stalled klippy → `MCU 'mcu' shutdown: Timer too close`.
+  Fixed with `debug: False` and a 15x15 mesh (no stall since). Scan height back to 2.0.
+
 ### First tap (2026-09-26, cold nozzle, clean, no filament)
 `PROBE_EDDY_NG_TAP` at the bed centre: taps -0.113 / -0.100 / -0.105 → **-0.106, stddev 0.005**, overshoot 0.035, sensor offset 0.105 at z=2.
 The contact point was about 0.1 mm (one paper thickness) below the paper-test zero, as expected.
