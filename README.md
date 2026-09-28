@@ -7,9 +7,9 @@
 > alongside the work.
 >
 > Since 2026-09-26, part of it has been **verified on the real machine**: the CAN bus, the toolhead
-> board, the Eddy probe, homing, gantry levelling and heater tuning. Those parts are ticked below,
+> board, the Eddy probe, homing, gantry levelling, heater tuning, the extruder and the start/end macros. Those parts are ticked below,
 > and the measurements are in [`docs/can-bringup.md`](docs/can-bringup.md). Everything else is still
-> plan. The printer has **not printed yet**.
+> plan. The first print is running as of 2026-09-27; nothing has been judged yet.
 >
 > If you found this repo looking to do the same conversion yourself: **don't follow it blindly yet.**
 > Come back when this note is gone. That's the signal the build is done and the docs describe reality.
@@ -21,10 +21,23 @@ The frame, the gantry and the 420 × 420 × 500 build volume stay. Almost nothin
 
 This repo is the config, the wiring notes, and the build log for that conversion.
 
-> **Status (2026-09-26): electronics up, motion and probing calibrated, not printed yet.**
+> **Status (2026-09-27): first print running.** Electronics up, motion and probing calibrated.
 > All three MCUs (Octopus, SB2209, Eddy Duo) are running Klipper. Z homes on the Eddy, `Z_TILT_ADJUST`
 > levels the gantry to about 0.001 mm, and both heaters are PID-tuned.
-> **Next:** silicone bed spacers and a tram, an extruder check, PRINT_START / PRINT_END, then a first-layer print.
+> Done 2026-09-27: silicone spacers + tram (mesh 0.72 mm, gantry bow only), new Y motor, extruder verified
+> (100 mm = 100 mm), PRINT_START / PRINT_END with KAMP, and an OrcaSlicer profile. **Next:** judge the first print, input shaping.
+
+
+<p align="center">
+  <img src="docs/media/printer.jpg" width="32%" alt="The converted Neptune 3 Max">
+  <img src="docs/media/toolhead-side.jpg" width="32%" alt="Stealthburner toolhead with the SB2209 on the back">
+  <img src="docs/media/first-print.gif" width="32%" alt="First print (Voron cube), 2026-09-27">
+</p>
+
+<p align="center"><sub>
+  <b>Left:</b> the whole machine. <b>Middle:</b> Stealthburner + CW2 with the SB2209 on the back; the Eddy Duo is sealed inside.
+  <b>Right:</b> first print, a Voron cube, 2026-09-27 (<a href="docs/media/first-print.mp4">MP4</a>).
+</sub></p>
 
 ---
 
@@ -99,6 +112,15 @@ measurement are in [`docs/can-bringup.md`](docs/can-bringup.md).
 Still open for the X1C hotend: confirm the **ceramic heater's wattage against what the SB2209's
 heater output can safely supply**. The thermistor is settled: `Generic 3950` reads correctly at
 room temperature and PID-tuned cleanly at 250 °C.
+
+### Electronics layout (temporary)
+
+<img src="docs/media/electronics.jpg" width="45%" align="right" alt="Bench layout of the electronics">
+
+For now the Octopus, Pi, U2C, PSU and the bed's DC MOSFET module sit loose next to the printer while things are still changing.
+A proper holder that mounts them under the printer is planned once the layout settles.
+
+<br clear="right">
 
 ### Mechanical
 - [x] **Carriage adapter.** Ben Ford's Neptune 3/4 Stealthburner plate (Printables 1185615), fitted.
